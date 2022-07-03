@@ -28,5 +28,54 @@ x_train = np.reshape(x_train, (x_train.shape[0],x_train.shape[1],1))
 
 # Construction RNN
 
+    #Librairies
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.layers import LSTM
+from keras.layers import Dropout
 
+regressor = Sequential() #initialisation du modéle
+
+    #1e couche de LSTM + Dropout
+regressor.add(LSTM(units=50, return_sequences=True,input_shape=(x_train.shape[1],1)))
+regressor.add(Dropout(0.2))
+
+    #2e couche de LSTM + Dropout
+regressor.add(LSTM(units=50, return_sequences=True))
+regressor.add(Dropout(0.2))
+
+    #3e couche de LSTM + Dropout
+regressor.add(LSTM(units=50, return_sequences=True))
+regressor.add(Dropout(0.2))
+
+    #4e couche de LSTM + Dropout
+regressor.add(LSTM(units=50))
+regressor.add(Dropout(0.2))
+
+    #couche de sortie
+regressor.add(Dense(units=1))
+
+    #compilation 
+regressor.compile(optimizer="adam", loss="mean_squared_error")
+
+    #entrainement
+regressor.fit(x_train, y_train, epochs=100, batch_size=32)
 #prédiction et visualisation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
